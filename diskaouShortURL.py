@@ -49,7 +49,8 @@ class ShortURL:
                          border=0,
                          highlightthickness=0,
                          font=("Quicksand Book", 14),
-                         fg="white"
+                         fg="white",
+                         insertbackground="yellow"
                          )
         large_url.pack()
         large_url.place(x=104,
@@ -65,7 +66,8 @@ class ShortURL:
                          border=0,
                          highlightthickness=0,
                          font=("Quicksand Book", 14),
-                         fg="white"
+                         fg="white",
+                         insertbackground="yellow"
                          )
         short_url.pack()
         short_url.place(x=414,
@@ -85,6 +87,7 @@ class ShortURL:
                               bg="black",
                               fg="white",
                               command=self.generate_short_url,
+                              activebackground="#630F0F",
                               )
 
         short_button.pack()
@@ -98,55 +101,19 @@ class ShortURL:
 
 
     def generate_short_url(self):
-        short_url.delete("1.0", END)
-        source_url = large_url.get("1.0", END)[:-1]
-        initialize_pyshortener = pyshorteners.Shortener()
-        target_short_url = initialize_pyshortener.tinyurl.short(source_url)
-        short_url.insert(INSERT, target_short_url)
-
-
-
-
-
+        try:
+            short_url.delete("1.0", END)
+            source_url = large_url.get("1.0", END)[:-1]
+            initialize_pyshortener = pyshorteners.Shortener()
+            target_short_url = initialize_pyshortener.tinyurl.short(source_url)
+            short_url.insert(INSERT, target_short_url)
+        except Exception:
+            large_url.config(fg="red",
+                             font=("Quicksand Bold", 48)
+                             )
+            large_url.insert(INSERT, "Invalid url")
 
 
 short = ShortURL()
 short.drawUI()
-
-
-# url = "https://www.techgeekbuzz.com/blog/how-to-make-a-url-shortener-in-python/"
-# shortener = pyshorteners.Shortener()
-# shorted_url = shortener.tinyurl.short(url)
-# print(shorted_url)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
