@@ -97,6 +97,11 @@ class ShortURL:
                            height=100
                            )
 
+        def call_generate_short_url(event):
+            self.generate_short_url()
+
+        root.bind("<Return>", call_generate_short_url)
+
         root.mainloop()
 
 
@@ -112,6 +117,8 @@ class ShortURL:
                              font=("Quicksand Bold", 48)
                              )
             large_url.insert(INSERT, "Invalid url")
+
+
 
 
 short = ShortURL()
